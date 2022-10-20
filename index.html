@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" 
+        content="IE=edge">
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0">
+    <title>My Profile Cards</title>
+    <meta name="Author" 
+        content="Harry Lee" />
+    <meta name="Description"
+        content="This Website is just for practice, I am not an author of this idea, but it writes on my code style. Ask directly authors in https://www.udemy.com/course/50-web-projects-with-html-css-and-javascript/ if you have some questions. Thank you" />
+    <!-- Remove Comment if you need Fontawesome -->
+    <!-- <link rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" 
+        referrerpolicy="no-referrer" /> -->
+    <link rel="preconnect" 
+        href="https://fonts.googleapis.com">
+    <link rel="preconnect" 
+        href="https://fonts.gstatic.com" 
+        crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ========== Overall Settings ========== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 62.5%;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .svg{
+            width: 20px;
+        }
+
+        a{
+            text-decoration: none;
+            color: #2b303a;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            background-color: #051321;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 40rem;
+        }
+
+        /* ========== Card Info Settings ========== */
+        .container .card .card-bio {
+            background-color: #ffbf00;
+            padding: 3rem 3rem 8rem 3rem;
+            display: flex;
+            border-radius: 0.5rem 0.5rem 0 0;
+            position: relative;
+            z-index: 100;
+        }
+
+        .container .card .img-wrapper {
+            width: 9rem;
+            height: 9rem;
+            margin-right: 3rem;
+        }
+
+        .container .card .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .container .card .person-info {
+            width: 60%;
+            color: #fff;
+            text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
+            color: #2b303a;
+        }
+
+        .container .card .person-info h3 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: 0.1rem;
+            margin-bottom: 1rem;
+            color: #2b303a;
+        }
+
+        .container .card .person-info p {
+            font-size: 1.8rem;
+        }
+
+        .container .card .card-btn {
+            position: absolute;
+            bottom: -2.5rem;
+            right: 10rem;
+            width: 20rem;
+            height: 6rem;
+            background-color: #2b303a;
+            color: #fff;
+            border-radius: 5rem;
+            border: none;
+            font-size: 2.4rem;
+            text-transform: uppercase;
+            box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+            outline: none;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+
+        .container.change .card .card-btn {
+            width: 6rem;
+            right: 3rem;
+            bottom: -3rem;
+            border-radius: 50%;
+        }
+
+        .container .card .card-btn-contact {
+            transition: all 0.5s 0.1s;
+        }
+
+        .container .card .card-btn-contact,
+        .container .card .card-btn svg {
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .container.change .card .card-btn-contact {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.1s;
+        }
+
+        .container .card .card-btn svg {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .container.change .card .card-btn svg {
+            opacity: 1;
+            width: 20px;
+            fill: white;
+            visibility: visible;
+            transition: all 0.5s;
+        }
+
+        /* ========== Card Contacts Settings ========== */
+
+        .card-contact {
+            background-color: royalblue;
+            color: #fff;
+            padding: 1.5rem 2rem;
+            border-radius: 0 0 0.5rem 0.5rem;
+            transform: translateY(-100%);
+            transition: all 0.5s;
+        }
+
+        .change .card-contact {
+            transform: translateY(0);
+        }
+
+        .card-contact h4 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
+            transform: scale(0);
+            transform-origin: left;
+            transition: all 0.5s;
+        }
+
+        .change .card-contact h4 {
+            transform: scale(1);
+        }
+
+        .card-social {
+            background-color: #fff;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.3rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transform: translateY(-50%);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .email {
+            transition: all 0.5s 0.3s;
+        }
+
+        .fb {
+            transition: all 0.5s 0.5s;
+        }
+
+        .linkedin {
+            transition: all 0.5s 0.7s;
+        }
+
+        .twitter {
+            transition: all 0.7s 0.9s;
+        }
+
+        .change .card-social {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .icon-wrapper {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 2rem;
+        }
+
+        .email .icon-wrapper {
+            background-color: #dd4b39;
+        }
+
+        .fb .icon-wrapper {
+            background-color: #3b5998;
+        }
+
+        .linkedin .icon-wrapper {
+            background-color: #007bb6;
+        }
+
+        .twitter .icon-wrapper {
+            background-color: #2978d3;
+        }
+
+        .icon-wrapper svg {
+            width: 15px;
+            fill: white;
+        }
+
+        .contact-details h4 {
+            font-size: 1.6rem;
+            letter-spacing: 0.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .email h4 {
+            color: #dd4b39;
+        }
+
+        .fb h4 {
+            color: #3b5998;
+        }
+
+        .linkedin h4 {
+            color: #007bb6;
+        }
+
+        .twitter h4 {
+            color: #2978d3;
+        }
+
+        .contact-details p {
+            font-size: 1.4rem;
+            color: #444;
+            letter-spacing: 0.1rem;
+        }
+
+        .card-social span {
+            margin-left: auto;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+
+            <div class="card-bio">
+                <div class="img-wrapper">
+                    <img src="src/atavar.jpg" alt="My atavar" />
+                </div>
+                <div class="person-info">
+                    <h3>Harry Lee</h3>
+                    <p>
+                        "Master yourself, Master your enemies"
+                    </p>
+                    <i>
+                        ~ Lee Sin from League of Legends.
+                    </i>
+                </div>
+                <button class="card-btn">
+                    <span class="card-btn-contact">Contact Me</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="card-contact">
+                <h4>Contact Me</h4>
+            </div>
+            
+            <div class="card-social email">
+                <div class="icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path d="M0 128C0 92.65 28.65 64 64 64H448C483.3 64 512 92.65 512 128V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V128zM48 128V150.1L220.5 291.7C241.1 308.7 270.9 308.7 291.5 291.7L464 150.1V127.1C464 119.2 456.8 111.1 448 111.1H64C55.16 111.1 48 119.2 48 127.1L48 128zM48 212.2V384C48 392.8 55.16 400 64 400H448C456.8 400 464 392.8 464 384V212.2L322 328.8C283.6 360.3 228.4 360.3 189.1 328.8L48 212.2z"/>
+                    </svg>
+                </div>
+                <div class="contact-details">
+                    <h4>Email</h4>
+                    <p>harrylee.vn.93@gmail.com</p>
+                </div>
+                <span>
+                    <a href = "mailto:harrylee.vn.93@gmail.com?subject=Mail from our Website">></a>
+                </span>
+            </div>
+
+            <div class="card-social fb">
+                <div class="icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                    </svg>
+                </div>
+                <div class="contact-details">
+                    <h4>Facebook</h4>
+                    <p>Goucq Ahm - The Pseudo White</p>
+                </div>
+                <span>
+                    <a href = "https://www.facebook.com/the.pseudo.white/">></a>
+                </span>
+            </div>
+
+            <div class="card-social linkedin">
+                <div class="icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+                    </svg>
+                </div>
+                <div class="contact-details">
+                    <h4>LinkedIn</h4>
+                    <p>@harryleevn93</p>
+                </div>
+                <span><a href = "https://www.linkedin.com/in/harryleevn93/">></a></span>
+            </div>
+
+            <div class="card-social twitter">
+                <div class="icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/>
+                    </svg>
+                </div>
+                <div class="contact-details">
+                    <h4>Twitter</h4>
+                    <p>@thepseudowhite</p>
+                </div>
+                <span><a href = "https://twitter.com/thepseudowhite">></a></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector(".card-btn").addEventListener("click", () => {
+            document.querySelector(".container").classList.toggle("change");
+        });
+    </script>
+</body>
+
+</html>
