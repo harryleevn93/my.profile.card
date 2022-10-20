@@ -37,6 +37,8 @@
             position: relative;
             background-image: url(./src/wallpaper.webp);
             background-size: cover;
+            display: flex;
+            justify-content: center;
         }
 
         .svg {
@@ -49,7 +51,6 @@
         }
 
         /* ========== Web Animation Settings ========== */
-        
         .web-anim{
             margin:0;
             overflow: hidden;
@@ -157,7 +158,6 @@
         }
 
         .card {
-            margin-top: 5rem;
             width: 60rem;
         }
 
@@ -442,6 +442,7 @@
 </head>
 
 <body>
+    <!-- ========= Web Contents ========= -->
     <div class="container">
         <div class="card">
 
@@ -554,16 +555,19 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- ========= Web Anim ========= -->
     <div class = "web-anim">
         <canvas id="scene"></canvas>
         <input id="copy" type="text" value="Hello Visitor!" />
         <p>Click anywhere to change the radius of your mouse</p>
     </div>
     
-    <audio id="audio">
-        <source
-            src="https://data.chiasenhac.com/down2/2238/5/2237203-0d75d1b8/128/Head%20In%20the%20Clouds%20-%20Hayd.mp3"
+    <!-- ========= Web Audio ========= -->
+    <audio id="audio" 
+        autoplay
+        loop>
+        <source src="./src/Hayd-hitc.mp3"
             type="audio/mpeg">
     </audio>
     <div id="mute-toggle" class = "mute">
@@ -580,11 +584,9 @@
             </svg>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js" 
-        integrity="sha512-CX7sDOp7UTAq+i1FYIlf9Uo27x4os+kGeoT7rgwvY+4dmjqV0IuE/Bl5hVsjnQPQiTOhAX1O2r2j5bjsFBvv/A==" 
-        crossorigin="anonymous" 
-        referrerpolicy="no-referrer">
-    </script>
+
+    <!-- ========= Scripts ========= -->
+    <script src="./src/jquery.js"></script>
     <script>
         // Toogle List Cards
         document.querySelector(".card-btn").addEventListener("click", () => {
@@ -594,16 +596,14 @@
         // Web-Audio
         $(document).ready(function () {
             var audio = document.getElementById("audio");
-            audio.autoplay = true;
-            audio.loop=true;
             
-            $("#mute-toggle").click(function () { // on toggle click
-                if ($(this).hasClass("toggled")) { // if toggle has class "toggled"
-                    audio.muted = false; // unmute audio
-                } else { // vice versa
+            $("#mute-toggle").click(function () { 
+                if ($(this).hasClass("toggled")) { 
+                    audio.muted = false; 
+                } else { 
                     audio.muted = true;
                 }
-                $(this).toggleClass("toggled"); // toggle class "toggled"
+                $(this).toggleClass("toggled");
             });
         });
 
