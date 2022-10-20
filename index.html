@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" 
-        content="IE=edge">
-    <meta name="viewport" 
-        content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile Cards</title>
-    <meta name="Author" 
-        content="Harry Lee" />
+    <meta name="Author" content="Harry Lee" />
     <meta name="Description"
         content="This Website is just for practice, I am not an author of this idea, but it writes on my code style. Ask directly authors in https://www.udemy.com/course/50-web-projects-with-html-css-and-javascript/ if you have some questions. Thank you" />
     <!-- Remove Comment if you need Fontawesome -->
@@ -16,11 +13,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" 
         referrerpolicy="no-referrer" /> -->
-    <link rel="preconnect" 
-        href="https://fonts.googleapis.com">
-    <link rel="preconnect" 
-        href="https://fonts.gstatic.com" 
-        crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
@@ -36,26 +30,133 @@
             font-family: 'Quicksand', sans-serif;
         }
 
-        .svg{
+        body{
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background-image: url(./src/wallpaper.webp);
+            background-size: cover;
+        }
+
+        .svg {
             width: 20px;
         }
 
-        a{
+        a {
             text-decoration: none;
             color: #2b303a;
         }
 
-        .container {
+        /* ========== Web Animation Settings ========== */
+        
+        .web-anim{
+            margin:0;
+            overflow: hidden;
             width: 100%;
-            height: 100vh;
-            background-color: #051321;
+            height: 100%;
+            font-size:0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .web-anim canvas{
+            background: black;
+            width: 100%;
+            height: 100%;
+        }
+
+        .web-anim input{
+            width: 250px;
+            height: 40px;
+            line-height: 40px;
+            position: absolute;
+            bottom: 35px;
+            left: calc(50% - 125px);
+            background: none;
+            color: white;
+            font-size: 30px;
+            font-family: arial;
+            text-align: center;
+            border: 1px solid white;
+            background: rgba(255,255,255,0.2);
+            visibility: hidden;
+        }
+
+        .web-anim p{
+            position: fixed;
+            left: 0;
+            bottom:5px;
+            color: #fff;
+            z-index:10;
+            font-size:16px;
+            font-family: Helvetica, Verdana, sans-serif;
+            opacity:0.5;
+            width: 100%;
+            text-align: center;
+            margin: 0;
+        }
+
+        .mute{
+            position: absolute;
+            font-size: 3rem;
+            right: 3rem;
+            bottom: 3rem;
+            z-index: 1;
+            width: 40px;
+            height: 40px;
+            border: solid white 1px;
+            border-radius: 50%;
+        }
+
+        .container-btn{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mute .container-btn svg{
+            width: 2.5rem;
+            fill: white;
+        }
+
+        .mute .container-btn .mute-btn{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            opacity: 1;
+        }
+
+        .mute .container-btn .unmute-btn{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            opacity: 0;
+        }
+
+        .mute.dark .container-btn .mute-btn{
+            opacity: 0;
+        }
+        
+        .mute.dark .container-btn .unmute-btn{
+            opacity: 1;
+        }
+
+        /* ========== Container Settings ========== */
+        .container {
+            background-color: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .card {
-            width: 40rem;
+            margin-top: 5rem;
+            width: 60rem;
         }
 
         /* ========== Card Info Settings ========== */
@@ -65,30 +166,29 @@
             display: flex;
             border-radius: 0.5rem 0.5rem 0 0;
             position: relative;
-            z-index: 100;
+            z-index: 2;
         }
 
-        .container .card .img-wrapper {
-            width: 9rem;
-            height: 9rem;
+        .container .card .card-bio .img-wrapper {
+            width: 15rem;
+            height: 15rem;
             margin-right: 3rem;
         }
 
-        .container .card .img-wrapper img {
+        .container .card .card-bio .img-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
             border-radius: 50%;
         }
 
-        .container .card .person-info {
-            width: 60%;
+        .container .card .card-bio .person-info {
+            margin-top: 3rem;
             color: #fff;
             text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
             color: #2b303a;
         }
 
-        .container .card .person-info h3 {
+        .container .card .card-bio .person-info h3 {
             font-size: 2.5rem;
             font-weight: 500;
             letter-spacing: 0.1rem;
@@ -96,41 +196,73 @@
             color: #2b303a;
         }
 
-        .container .card .person-info p {
+        .container .card .card-bio .person-info p {
             font-size: 1.8rem;
         }
 
-        .container .card .card-btn {
+        .container .card .card-bio .card-btn {
             position: absolute;
             bottom: -2.5rem;
-            right: 10rem;
+            right: 20rem;
             width: 20rem;
             height: 6rem;
-            background-color: #2b303a;
+            background: linear-gradient(to top, #00154c, #12376e, #23487f);
             color: #fff;
             border-radius: 5rem;
             border: none;
-            font-size: 2.4rem;
+            font-size: 2rem;
             text-transform: uppercase;
             box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
             outline: none;
             cursor: pointer;
-            transition: all 0.5s;
+            border: none;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .container.change .card .card-btn {
+        .container .card .card-bio .card-btn .card-hover {
+            width: 100%;
+            height: 100%;
+            transition: all 0.2s;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container .card .card-bio .card-btn .card-hover .btn-text-one {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .container .card .card-bio .card-btn .card-hover .btn-text-two {
+            position: absolute;
+            top: 150%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .container .card .card-bio .card-btn .card-hover:hover .btn-text-one {
+            top: -100%;
+        }
+
+        .container .card .card-bio .card-btn .card-hover:hover .btn-text-two {
+            top: 50%;
+        }
+
+        .container.change .card .card-bio .card-btn {
             width: 6rem;
             right: 3rem;
             bottom: -3rem;
             border-radius: 50%;
         }
 
-        .container .card .card-btn-contact {
+        .container .card .card-bio .card-btn .card-btn-contact {
             transition: all 0.5s 0.1s;
         }
 
-        .container .card .card-btn-contact,
-        .container .card .card-btn svg {
+        .container .card .card-bio .card-btn .card-btn-contact,
+        .container .card .card-bio .card-btn svg {
             width: 100%;
             position: absolute;
             top: 50%;
@@ -138,18 +270,18 @@
             transform: translate(-50%, -50%);
         }
 
-        .container.change .card .card-btn-contact {
+        .container.change .card .card-bio .card-btn .card-btn-contact {
             opacity: 0;
             visibility: hidden;
             transition: all 0.1s;
         }
 
-        .container .card .card-btn svg {
+        .container .card .card-bio .card-btn svg {
             opacity: 0;
             visibility: hidden;
         }
 
-        .container.change .card .card-btn svg {
+        .container.change .card .card-bio .card-btn svg {
             opacity: 1;
             width: 20px;
             fill: white;
@@ -159,7 +291,7 @@
 
         /* ========== Card Contacts Settings ========== */
 
-        .card-contact {
+        .container .card .card-contact {
             background-color: royalblue;
             color: #fff;
             padding: 1.5rem 2rem;
@@ -168,11 +300,11 @@
             transition: all 0.5s;
         }
 
-        .change .card-contact {
+        .container.change .card .card-contact {
             transform: translateY(0);
         }
 
-        .card-contact h4 {
+        .container .card .card-contact h4 {
             font-size: 1.8rem;
             font-weight: 500;
             text-transform: uppercase;
@@ -183,11 +315,11 @@
             transition: all 0.5s;
         }
 
-        .change .card-contact h4 {
+        .container.change .card .card-contact h4 {
             transform: scale(1);
         }
 
-        .card-social {
+        .container .card .card-social {
             background-color: #fff;
             padding: 1.5rem;
             margin: 2rem 0;
@@ -200,29 +332,33 @@
             visibility: hidden;
         }
 
-        .email {
+        .container .card .email {
             transition: all 0.5s 0.3s;
         }
 
-        .fb {
+        .container .card .fb {
             transition: all 0.5s 0.5s;
         }
 
-        .linkedin {
+        .container .card .linkedin {
             transition: all 0.5s 0.7s;
         }
 
-        .twitter {
+        .container .card .twitter {
             transition: all 0.7s 0.9s;
         }
 
-        .change .card-social {
+        .container .card .github {
+            transition: all 0.9s 1.1s;
+        }
+
+        .container.change .card .card-social {
             transform: translateY(0);
             opacity: 1;
             visibility: visible;
         }
 
-        .icon-wrapper {
+        .container .card .card-social .icon-wrapper {
             width: 4rem;
             height: 4rem;
             border-radius: 50%;
@@ -232,56 +368,69 @@
             margin-right: 2rem;
         }
 
-        .email .icon-wrapper {
+        .container .card .email .icon-wrapper {
             background-color: #dd4b39;
         }
 
-        .fb .icon-wrapper {
+        .container .card .fb .icon-wrapper {
             background-color: #3b5998;
         }
 
-        .linkedin .icon-wrapper {
+        .container .card .linkedin .icon-wrapper {
             background-color: #007bb6;
         }
 
-        .twitter .icon-wrapper {
+        .container .card .twitter .icon-wrapper {
             background-color: #2978d3;
         }
 
-        .icon-wrapper svg {
+        .container .card .github .icon-wrapper {
+            background-color: #1f2124;
+        }
+
+        .container .card .card-social .icon-wrapper svg {
+            width: 20px;
+            fill: white;
+        }
+
+        .container .card .fb .icon-wrapper svg {
             width: 15px;
             fill: white;
         }
 
-        .contact-details h4 {
+        .container .card .card-social .contact-details h4 {
             font-size: 1.6rem;
             letter-spacing: 0.1rem;
             margin-bottom: 0.5rem;
         }
 
-        .email h4 {
+        .container .card .email h4 {
             color: #dd4b39;
         }
 
-        .fb h4 {
+        .container .card .fb h4 {
             color: #3b5998;
         }
 
-        .linkedin h4 {
+        .container .card .linkedin h4 {
             color: #007bb6;
         }
 
-        .twitter h4 {
+        .container .card .twitter h4 {
             color: #2978d3;
         }
 
-        .contact-details p {
+        .container .card .github h4 {
+            color: #1f2124;
+        }
+
+        .container .card .card-social .contact-details p {
             font-size: 1.4rem;
             color: #444;
             letter-spacing: 0.1rem;
         }
 
-        .card-social span {
+        .container .card .card-social span {
             margin-left: auto;
             font-size: 2rem;
             font-weight: bold;
@@ -296,35 +445,40 @@
 
             <div class="card-bio">
                 <div class="img-wrapper">
-                    <img src="src/atavar.jpg" alt="My atavar" />
+                    <img src="src/atavar.jpg" alt="My atavar"/>
                 </div>
                 <div class="person-info">
                     <h3>Harry Lee</h3>
                     <p>
-                        "Master yourself, Master your enemies"
+                        "Trust yourself, Be a Master of the World"
                     </p>
                     <i>
-                        ~ Lee Sin from League of Legends.
+                        ~ Hochiminh City, 2022.
                     </i>
                 </div>
                 <button class="card-btn">
-                    <span class="card-btn-contact">Contact Me</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                        <path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/>
-                    </svg>
+                    <div class="card-hover">
+                        <span class="card-btn-contact btn-text-one">Contact Me!</span>
+                        <span class="card-btn-contact btn-text-two">Click Me~!</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <path
+                                d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z" />
+                        </svg>
+                    </div>
                 </button>
             </div>
 
             <div class="card-contact">
                 <h4>Contact Me</h4>
             </div>
-            
+
             <div class="card-social email">
                 <div class="icon-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                        <path d="M0 128C0 92.65 28.65 64 64 64H448C483.3 64 512 92.65 512 128V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V128zM48 128V150.1L220.5 291.7C241.1 308.7 270.9 308.7 291.5 291.7L464 150.1V127.1C464 119.2 456.8 111.1 448 111.1H64C55.16 111.1 48 119.2 48 127.1L48 128zM48 212.2V384C48 392.8 55.16 400 64 400H448C456.8 400 464 392.8 464 384V212.2L322 328.8C283.6 360.3 228.4 360.3 189.1 328.8L48 212.2z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path
+                            d="M0 128C0 92.65 28.65 64 64 64H448C483.3 64 512 92.65 512 128V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V128zM48 128V150.1L220.5 291.7C241.1 308.7 270.9 308.7 291.5 291.7L464 150.1V127.1C464 119.2 456.8 111.1 448 111.1H64C55.16 111.1 48 119.2 48 127.1L48 128zM48 212.2V384C48 392.8 55.16 400 64 400H448C456.8 400 464 392.8 464 384V212.2L322 328.8C283.6 360.3 228.4 360.3 189.1 328.8L48 212.2z" />
                     </svg>
                 </div>
                 <div class="contact-details">
@@ -332,15 +486,16 @@
                     <p>harrylee.vn.93@gmail.com</p>
                 </div>
                 <span>
-                    <a href = "mailto:harrylee.vn.93@gmail.com?subject=Mail from our Website">></a>
+                    <a href="mailto:harrylee.vn.93@gmail.com?subject=Mail from our Website">></a>
                 </span>
             </div>
 
             <div class="card-social fb">
                 <div class="icon-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 320 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                        <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+                        <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path
+                            d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z" />
                     </svg>
                 </div>
                 <div class="contact-details">
@@ -348,44 +503,245 @@
                     <p>Goucq Ahm - The Pseudo White</p>
                 </div>
                 <span>
-                    <a href = "https://www.facebook.com/the.pseudo.white/">></a>
+                    <a href="https://www.facebook.com/the.pseudo.white/">></a>
                 </span>
             </div>
 
             <div class="card-social linkedin">
                 <div class="icon-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                        <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path
+                            d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" />
                     </svg>
                 </div>
                 <div class="contact-details">
                     <h4>LinkedIn</h4>
                     <p>@harryleevn93</p>
                 </div>
-                <span><a href = "https://www.linkedin.com/in/harryleevn93/">></a></span>
+                <span><a href="https://www.linkedin.com/in/harryleevn93/">></a></span>
             </div>
 
             <div class="card-social twitter">
                 <div class="icon-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                        <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path
+                            d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
                     </svg>
                 </div>
                 <div class="contact-details">
                     <h4>Twitter</h4>
                     <p>@thepseudowhite</p>
                 </div>
-                <span><a href = "https://twitter.com/thepseudowhite">></a></span>
+                <span><a href="https://twitter.com/thepseudowhite">></a></span>
+            </div>
+
+            <div class="card-social github">
+                <div class="icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 496 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                        <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/>
+                    </svg>
+                </div>
+                <div class="contact-details">
+                    <h4>Github</h4>
+                    <p>@harryleevn93</p>
+                </div>
+                <span><a href="https://github.com/harryleevn93">></a></span>
             </div>
         </div>
     </div>
-
+    
+    <div class = "web-anim">
+        <canvas id="scene"></canvas>
+        <input id="copy" type="text" value="Hello Visitor!" />
+        <p>Click anywhere to change the radius of your mouse</p>
+    </div>
+    
+    <audio id="audio">
+        <source
+            src="https://data.chiasenhac.com/down2/2238/5/2237203-0d75d1b8/128/Head%20In%20the%20Clouds%20-%20Hayd.mp3"
+            type="audio/mpeg">
+    </audio>
+    <div id="mute-toggle" class = "mute">
+        <div class="container-btn">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class = "mute-btn"
+                viewBox="0 0 576 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                <path d="M301.1 34.8C312.6 40 320 51.4 320 64V448c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64V224c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM425 167l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                class = "unmute-btn"
+                viewBox="0 0 640 512"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                <path d="M533.6 32.5C598.5 85.3 640 165.8 640 256s-41.5 170.8-106.4 223.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C557.5 398.2 592 331.2 592 256s-34.5-142.2-88.7-186.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5zM473.1 107c43.2 35.2 70.9 88.9 70.9 149s-27.7 113.8-70.9 149c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C475.3 341.3 496 301.1 496 256s-20.7-85.3-53.2-111.8c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5zm-60.5 74.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5zM301.1 34.8C312.6 40 320 51.4 320 64V448c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64V224c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3z"/>
+            </svg>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" 
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer"></script>
     <script>
+        // Toogle List Cards
         document.querySelector(".card-btn").addEventListener("click", () => {
             document.querySelector(".container").classList.toggle("change");
         });
+
+        // Web-Animation
+        $(document).ready(function () {
+            var audio = document.getElementById("audio");
+            audio.autoplay = true;
+            audio.loop=true;
+            
+            $("#mute-toggle").click(function () { // on toggle click
+                if ($(this).hasClass("toggled")) { // if toggle has class "toggled"
+                    audio.muted = false; // unmute audio
+                } else { // vice versa
+                    audio.muted = true;
+                }
+                $(this).toggleClass("toggled"); // toggle class "toggled"
+            });
+        });
+
+        var canvas = document.querySelector("#scene"),
+                ctx = canvas.getContext("2d"),
+                particles = [],
+                amount = 0,
+                mouse = { x: 0, y: 0 },
+                radius = 1;
+
+            var colors = ["#468966", "#FFF0A5", "#FFB03B", "#B64926", "#8E2800"];
+
+            var copy = document.querySelector("#copy");
+
+            var ww = canvas.width = window.innerWidth;
+            var wh = canvas.height = window.innerHeight;
+
+            function Particle(x, y) {
+                this.x = Math.random() * ww;
+                this.y = Math.random() * wh;
+                this.dest = {
+                    x: x,
+                    y: y
+                };
+                this.r = Math.random() * 5 + 2;
+                this.vx = (Math.random() - 0.5) * 20;
+                this.vy = (Math.random() - 0.5) * 20;
+                this.accX = 0;
+                this.accY = 0;
+                this.friction = Math.random() * 0.05 + 0.94;
+
+                this.color = colors[Math.floor(Math.random() * 6)];
+            }
+
+            Particle.prototype.render = function () {
+
+
+                this.accX = (this.dest.x - this.x) / 1000;
+                this.accY = (this.dest.y - this.y) / 1000;
+                this.vx += this.accX;
+                this.vy += this.accY;
+                this.vx *= this.friction;
+                this.vy *= this.friction;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
+                ctx.fill();
+
+                var a = this.x - mouse.x;
+                var b = this.y - mouse.y;
+
+                var distance = Math.sqrt(a * a + b * b);
+                if (distance < (radius * 70)) {
+                    this.accX = (this.x - mouse.x) / 100;
+                    this.accY = (this.y - mouse.y) / 100;
+                    this.vx += this.accX;
+                    this.vy += this.accY;
+                }
+
+            }
+
+            function onMouseMove(e) {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            }
+
+            function onTouchMove(e) {
+                if (e.touches.length > 0) {
+                    mouse.x = e.touches[0].clientX;
+                    mouse.y = e.touches[0].clientY;
+                }
+            }
+
+            function onTouchEnd(e) {
+                mouse.x = -9999;
+                mouse.y = -9999;
+            }
+
+            function initScene() {
+                ww = canvas.width = window.innerWidth;
+                wh = canvas.height = window.innerHeight;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.font = "bold " + (ww / 10) + "px sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText(copy.value, ww / 2, wh / 2);
+
+                var data = ctx.getImageData(0, 0, ww, wh).data;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.globalCompositeOperation = "screen";
+
+                particles = [];
+                for (var i = 0; i < ww; i += Math.round(ww / 150)) {
+                    for (var j = 0; j < wh; j += Math.round(ww / 150)) {
+                        if (data[((i + j * ww) * 4) + 3] > 150) {
+                            particles.push(new Particle(i, j));
+                        }
+                    }
+                }
+                amount = particles.length;
+
+            }
+
+            function onMouseClick() {
+                radius++;
+                if (radius === 5) {
+                    radius = 0;
+                }
+            }
+
+            function render(a) {
+                requestAnimationFrame(render);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (var i = 0; i < amount; i++) {
+                    particles[i].render();
+                }
+            };
+
+            copy.addEventListener("keyup", initScene);
+            window.addEventListener("resize", initScene);
+            window.addEventListener("mousemove", onMouseMove);
+            window.addEventListener("touchmove", onTouchMove);
+            window.addEventListener("click", onMouseClick);
+            window.addEventListener("touchend", onTouchEnd);
+            initScene();
+            requestAnimationFrame(render);
+
+
+        // Mute Button Toogle        
+        const container = document.querySelector(".mute");
+        const toggle = document.querySelector(".container-btn");
+
+        toggle.addEventListener("click", () => {
+            container.classList.toggle("dark");
+        })
     </script>
 </body>
 
